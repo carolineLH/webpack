@@ -1,4 +1,5 @@
 const path = require('path')
+const ZipPlugin = require('./plugins/zip-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -6,12 +7,10 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'main.js'
   },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        use: [path.resolve('./loaders/a-loader.js'), path.resolve('./loaders/b-loader.js')]
-      }
-    ]
-  }
+  mode: 'production',
+  plugins: [
+    new ZipPlugin({
+      name: 'offline'
+    })
+  ]
 }
